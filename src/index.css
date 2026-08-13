@@ -1,0 +1,51 @@
+:root {
+  --page-bg: #eef1f4;
+  --panel-border: rgba(110, 120, 130, 0.16);
+  --panel-shadow: 0 18px 60px rgba(13, 20, 28, 0.08);
+  --paper-bg: #ffffff;
+  --paper-border: #dde2e7;
+  --paper-shadow: 0 24px 90px rgba(15, 23, 42, 0.12);
+  --cv-ink: #111827;
+  --cv-text: #1f2937;
+  --cv-body: #374151;
+  --cv-muted: #6b7280;
+  --cv-rule: #d7dbe0;
+  --cv-chip-bg: #f8fafc;
+  --cv-chip-border: #d8dde3;
+  --cv-heading-font: Georgia, "Times New Roman", serif;
+  --cv-body-font: "Segoe UI", Arial, sans-serif;
+}
+
+html {
+  background: var(--page-bg);
+  color-scheme: light;
+  font-family: var(--cv-body-font);
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--page-bg);
+  color: var(--cv-text);
+}
+
+#root {
+  min-height: 100svh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}

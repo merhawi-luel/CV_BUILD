@@ -1,0 +1,571 @@
+.app {
+  min-height: 100svh;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #09090e;
+}
+
+.form-panel,
+.cv-preview-panel {
+  min-width: 0;
+}
+
+.form-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: #09090e;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  overflow: auto;
+  flex: 0 0 auto;
+}
+
+.splitter-handle {
+  flex: 0 0 14px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: col-resize;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  position: relative;
+  outline: none;
+  touch-action: none;
+  user-select: none;
+}
+
+.splitter-handle span {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 2px;
+  height: 76px;
+  border-radius: 999px;
+  background: rgba(184, 255, 71, 0.7);
+  box-shadow: 0 0 0 1px rgba(184, 255, 71, 0.12), 0 0 18px rgba(184, 255, 71, 0.2);
+}
+
+.splitter-handle.is-dragging,
+.splitter-handle:hover {
+  background: rgba(184, 255, 71, 0.1);
+}
+
+.form-panel :is(.personal-form, .education-form, .experience-form, .skills-form) {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 22px 20px;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0;
+  background: transparent;
+}
+
+.form-panel :is(.personal-form h2, .education-form h2, .experience-form h2, .skills-form h2) {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--form-panel-heading, #b8ff47);
+  font-family: "DM Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.form-panel :is(input, textarea) {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--form-panel-field-border, rgba(255, 255, 255, 0.08));
+  background: var(--form-panel-field-bg, rgba(13, 15, 22, 0.96));
+  color: var(--form-panel-field-text, #f3f4f6);
+  box-sizing: border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.form-panel :is(input, textarea)::placeholder {
+  color: var(--form-panel-field-placeholder, #6b7280);
+}
+
+.form-panel :is(input, textarea):focus {
+  outline: none;
+  border-color: #b8ff47;
+  box-shadow: 0 0 0 3px rgba(184, 255, 71, 0.16);
+}
+
+.form-panel textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.form-panel :is(.education-form > button, .experience-form > button, .skills-form > button, .education-entry button, .experience-entry button, .skill-tag button, .skills-form button[type="button"]) {
+  border: 1px solid var(--form-panel-button-border, rgba(17, 24, 39, 0.14));
+  background: var(--form-panel-button-bg, rgba(255, 255, 255, 0.86));
+  color: var(--form-panel-button-text, #111827);
+  border-radius: 12px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.form-panel .education-form > button,
+.form-panel .experience-form > button,
+.form-panel .skills-form > button {
+  border-style: dashed;
+  background: transparent;
+  color: var(--form-panel-subtle, rgba(255, 255, 255, 0.65));
+  padding: 14px 12px;
+  letter-spacing: 0.04em;
+}
+
+.form-panel .education-entry,
+.form-panel .experience-entry {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.form-panel .education-entry button,
+.form-panel .experience-entry button {
+  justify-self: end;
+  width: fit-content;
+}
+
+.form-panel .skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.form-panel .skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--form-panel-chip-bg, rgba(243, 244, 246, 0.95));
+  color: var(--form-panel-chip-text, #111827);
+  border: 1px solid var(--form-panel-chip-border, rgba(17, 24, 39, 0.12));
+}
+
+.form-panel .skill-tag button {
+  padding: 0 6px;
+  border-radius: 999px;
+}
+
+.form-panel-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 22px 18px;
+}
+
+.brand-block h1 {
+  margin: 0;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: #f7f7fb;
+  letter-spacing: -0.04em;
+  text-transform: lowercase;
+}
+
+.brand-mark {
+  color: #b9ff3f;
+}
+
+.brand-block p {
+  margin: 10px 0 0;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.42);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: 0.02em;
+}
+
+.form-panel-theme-picker {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.form-panel-theme-picker button {
+  border: 1px solid var(--form-panel-control-border, rgba(255, 255, 255, 0.12));
+  background: var(--form-panel-control-bg, rgba(255, 255, 255, 0.03));
+  color: var(--form-panel-control-text, rgba(255, 255, 255, 0.78));
+  border-radius: 999px;
+  padding: 9px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: lowercase;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+
+.form-panel-theme-picker button.is-active {
+  background: #b8ff47;
+  color: #09090e;
+  border-color: transparent;
+}
+
+.form-panel--dark {
+  background: linear-gradient(180deg, rgba(17, 24, 39, 0.98), rgba(31, 41, 55, 0.96));
+  border-color: rgba(148, 163, 184, 0.14);
+  --form-panel-heading: #b8ff47;
+  --form-panel-subtle: #cbd5e1;
+  --form-panel-card-bg: rgba(15, 23, 42, 0.62);
+  --form-panel-card-border: rgba(148, 163, 184, 0.16);
+  --form-panel-field-bg: rgba(15, 23, 42, 0.92);
+  --form-panel-field-text: #f8fafc;
+  --form-panel-field-border: rgba(148, 163, 184, 0.18);
+  --form-panel-field-placeholder: #94a3b8;
+  --form-panel-button-bg: rgba(255, 255, 255, 0.08);
+  --form-panel-button-text: #f8fafc;
+  --form-panel-button-border: rgba(255, 255, 255, 0.14);
+  --form-panel-chip-bg: rgba(30, 41, 59, 0.9);
+  --form-panel-chip-text: #f8fafc;
+  --form-panel-chip-border: rgba(148, 163, 184, 0.16);
+  --form-panel-control-bg: rgba(255, 255, 255, 0.08);
+  --form-panel-control-text: #f9fafb;
+  --form-panel-control-border: rgba(255, 255, 255, 0.14);
+  --form-panel-control-active-bg: #f9fafb;
+  --form-panel-control-active-text: #111827;
+}
+
+.form-panel--grey {
+  background: linear-gradient(180deg, rgba(225, 228, 233, 0.98), rgba(209, 213, 219, 0.94));
+  --form-panel-heading: #111827;
+  --form-panel-subtle: #4b5563;
+  --form-panel-card-bg: rgba(255, 255, 255, 0.55);
+  --form-panel-card-border: rgba(17, 24, 39, 0.08);
+  --form-panel-field-bg: rgba(255, 255, 255, 0.96);
+  --form-panel-field-text: #111827;
+  --form-panel-field-border: rgba(17, 24, 39, 0.12);
+  --form-panel-field-placeholder: #6b7280;
+  --form-panel-button-bg: rgba(255, 255, 255, 0.88);
+  --form-panel-button-text: #111827;
+  --form-panel-button-border: rgba(17, 24, 39, 0.12);
+  --form-panel-chip-bg: rgba(249, 250, 251, 0.98);
+  --form-panel-chip-text: #111827;
+  --form-panel-chip-border: rgba(17, 24, 39, 0.1);
+  --form-panel-control-bg: rgba(255, 255, 255, 0.65);
+  --form-panel-control-text: #111827;
+  --form-panel-control-border: rgba(17, 24, 39, 0.12);
+  --form-panel-control-active-bg: #374151;
+  --form-panel-control-active-text: #ffffff;
+}
+
+.form-panel--white {
+  background: rgba(255, 255, 255, 0.98);
+  --form-panel-heading: #111827;
+  --form-panel-subtle: #6b7280;
+  --form-panel-card-bg: rgba(255, 255, 255, 0.84);
+  --form-panel-card-border: rgba(17, 24, 39, 0.08);
+  --form-panel-field-bg: rgba(255, 255, 255, 1);
+  --form-panel-field-text: #111827;
+  --form-panel-field-border: rgba(17, 24, 39, 0.14);
+  --form-panel-field-placeholder: #6b7280;
+  --form-panel-button-bg: rgba(255, 255, 255, 0.95);
+  --form-panel-button-text: #111827;
+  --form-panel-button-border: rgba(17, 24, 39, 0.14);
+  --form-panel-chip-bg: rgba(249, 250, 251, 0.98);
+  --form-panel-chip-text: #111827;
+  --form-panel-chip-border: rgba(17, 24, 39, 0.12);
+  --form-panel-control-bg: rgba(255, 255, 255, 0.95);
+  --form-panel-control-text: #111827;
+  --form-panel-control-border: rgba(17, 24, 39, 0.14);
+  --form-panel-control-active-bg: #111827;
+  --form-panel-control-active-text: #ffffff;
+}
+
+.form-panel--paper {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(249, 250, 251, 0.98)),
+    radial-gradient(circle at top left, rgba(226, 232, 240, 0.3), transparent 42%);
+  border-color: rgba(191, 199, 208, 0.92);
+  --form-panel-heading: #1f2937;
+  --form-panel-subtle: #64748b;
+  --form-panel-card-bg: rgba(255, 255, 255, 0.82);
+  --form-panel-card-border: rgba(148, 163, 184, 0.14);
+  --form-panel-field-bg: rgba(255, 255, 255, 0.98);
+  --form-panel-field-text: #111827;
+  --form-panel-field-border: rgba(148, 163, 184, 0.2);
+  --form-panel-field-placeholder: #94a3b8;
+  --form-panel-button-bg: rgba(248, 250, 252, 0.96);
+  --form-panel-button-text: #111827;
+  --form-panel-button-border: rgba(148, 163, 184, 0.16);
+  --form-panel-chip-bg: rgba(248, 250, 252, 0.98);
+  --form-panel-chip-text: #111827;
+  --form-panel-chip-border: rgba(148, 163, 184, 0.18);
+  --form-panel-control-bg: rgba(248, 250, 252, 0.95);
+  --form-panel-control-text: #111827;
+  --form-panel-control-border: rgba(148, 163, 184, 0.18);
+  --form-panel-control-active-bg: #1f2937;
+  --form-panel-control-active-text: #ffffff;
+}
+
+.cv-preview-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+  padding: 50px 28px 28px;
+  background: #e8e8ee;
+  flex: 1 1 auto;
+}
+
+.cv-preview {
+  width: min(100%, 8.5in);
+  min-height: 11in;
+  box-sizing: border-box;
+  background: var(--paper-bg);
+  color: var(--cv-text);
+  border: 1px solid var(--paper-border);
+  box-shadow: var(--paper-shadow);
+  padding: 42px 48px;
+  font-family: var(--cv-body-font);
+  line-height: 1.55;
+}
+
+.download-cv-button {
+  appearance: none;
+  border: 1px solid #0a0a0e;
+  background: #0a0a0e;
+  color: #fff;
+  border-radius: 999px;
+  padding: 16px 32px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+}
+
+.download-cv-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.24);
+}
+
+.download-cv-button:active {
+  transform: translateY(0);
+  opacity: 0.92;
+}
+
+.cv-header {
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #dfe4ea;
+  text-align: left;
+}
+
+.cv-header h1 {
+  margin: 0;
+  font-family: var(--cv-heading-font);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--cv-ink);
+  text-transform: uppercase;
+}
+
+.cv-header p {
+  margin: 12px 0 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+  word-break: break-word;
+}
+
+.cv-profile-links {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.cv-profile-link {
+  color: #1d4ed8;
+  font-size: 0.88rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(29, 78, 216, 0.25);
+}
+
+.cv-profile-link:hover {
+  border-bottom-color: currentColor;
+}
+
+.cv-education,
+.cv-experience,
+.cv-skills {
+  padding-top: 18px;
+  margin-top: 18px;
+  border-top: 1px solid #dfe4ea;
+}
+
+.cv-education h2,
+.cv-experience h2,
+.cv-skills h2 {
+  margin: 0 0 12px;
+  font-family: var(--cv-heading-font);
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cv-ink);
+}
+
+.cv-education hr,
+.cv-experience hr,
+.cv-skills hr {
+  display: none;
+}
+
+.cv-education-entry,
+.cv-experience-entry {
+  margin-bottom: 14px;
+}
+
+.cv-entry-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.cv-entry-row strong {
+  flex: 1;
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--cv-ink);
+}
+
+.cv-dates {
+  flex: 0 0 auto;
+  margin-left: auto;
+  text-align: right;
+  white-space: nowrap;
+  font-size: 0.82rem;
+  color: var(--cv-muted);
+}
+
+.cv-education-entry p,
+.cv-experience-entry p {
+  margin: 4px 0 0;
+  color: var(--cv-body);
+}
+
+.cv-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cv-skill-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border: 1px solid #d6dde6;
+  border-radius: 999px;
+  background: #f7f9fb;
+  color: var(--cv-ink);
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+@media (max-width: 1080px) {
+  .app {
+    flex-direction: column;
+    background: #e8e8ee;
+  }
+
+  .form-panel,
+  .cv-preview-panel {
+    width: 100% !important;
+  }
+
+  .splitter-handle {
+    display: none;
+  }
+
+  .form-panel {
+    border-right: none;
+  }
+
+  .cv-preview-panel {
+    padding: 22px 16px 28px;
+  }
+
+  .cv-preview {
+    padding: 36px 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .form-panel {
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .form-panel-topbar {
+    flex-direction: column;
+  }
+
+  .form-panel-theme-picker {
+    justify-content: flex-start;
+  }
+
+  .cv-preview {
+    padding: 28px 18px;
+  }
+
+  .cv-entry-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .cv-dates {
+    margin-left: 0;
+    text-align: left;
+  }
+}
+
+@media print {
+  .app {
+    display: block;
+    padding: 0;
+    background: #fff;
+  }
+
+  .form-panel {
+    display: none;
+  }
+
+  .cv-preview-panel {
+    padding: 0;
+  }
+
+  .download-cv-button {
+    display: none;
+  }
+
+  .cv-preview {
+    width: 100%;
+    min-height: auto;
+    box-shadow: none;
+    border: none;
+    padding: 0.55in 0.6in;
+  }
+}
