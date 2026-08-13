@@ -1,33 +1,35 @@
-function CVSkills({ skills }) {
-  const visible = skills.filter((s) => String(s || "").trim() !== "");
-
+function CVSkills({ skills, scale = 1 }) {
+  const px = (value) => `${Math.round(value * scale)}px`;
+  const visible = skills.filter((s) => String(s || '').trim() !== '');
   if (visible.length === 0) return null;
 
   return (
-    <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid #e0e0e8' }}>
+    <div style={{ marginBottom: px(20) }}>
       <div style={{
-        fontFamily: "'DM Mono', monospace",
-        fontSize: '10px',
-        fontWeight: 500,
-        letterSpacing: '0.14em',
+        fontFamily: "'Inter', sans-serif",
+        fontSize: px(13),
+        fontWeight: 800,
+        letterSpacing: '0.08em',
         textTransform: 'uppercase',
-        color: '#6b21a8',
-        marginBottom: '10px',
+        color: '#1a3658',
+        borderBottom: `${Math.max(1, Math.round(2 * scale))}px solid #1a3658`,
+        paddingBottom: px(4),
+        marginBottom: px(12),
       }}>
-        Skills
+        Additional Information
       </div>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: px(6) }}>
         {visible.map((skill) => (
           <span key={skill} style={{
-            padding: '4px 12px',
-            background: '#f3e8ff',
-            border: '1px solid #e9d5ff',
-            borderRadius: '20px',
-            fontFamily: "'DM Mono', monospace",
-            fontSize: '12px',
-            color: '#6b21a8',
-            lineHeight: 1.4,
+            padding: `${Math.round(4 * scale)}px ${Math.round(12 * scale)}px`,
+            background: '#eff6ff',
+            border: '1px solid #bfdbfe',
+            borderRadius: px(4),
+            fontFamily: "'Inter', sans-serif",
+            fontSize: px(12.5),
+            color: '#1a3658',
+            fontWeight: 500,
           }}>
             {skill}
           </span>

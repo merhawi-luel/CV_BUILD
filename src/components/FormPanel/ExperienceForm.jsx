@@ -1,4 +1,5 @@
 import ExperienceEntry from "./ExperienceEntry";
+import "../styles/FormPanel.css";
 
 const THEMES = {
   dark:  { label: '#b8ff47', border: '#242432' },
@@ -12,20 +13,10 @@ function ExperienceForm({ experience, onAddExperience, onRemoveExperience, onExp
   const textColor = theme === 'dark' ? '#e8e8f0' : '#1a1a2e';
 
   return (
-    <section>
-      <div style={{
-        fontFamily: "'DM Mono', monospace",
-        fontSize: '10px',
-        fontWeight: 500,
-        letterSpacing: '0.12em',
-        textTransform: 'uppercase',
-        color: t.label,
-        marginBottom: '12px',
-      }}>
-        Work Experience
-      </div>
+    <section className="section">
+      <div className="section-label">Work Experience</div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div className="section-content">
         {experience.map((entry) => (
           <ExperienceEntry
             key={entry.id}
@@ -39,30 +30,7 @@ function ExperienceForm({ experience, onAddExperience, onRemoveExperience, onExp
         <button
           type="button"
           onClick={onAddExperience}
-          style={{
-            width: '100%',
-            background: 'transparent',
-            border: `1px dashed ${t.border}`,
-            borderRadius: '8px',
-            padding: '10px',
-            color: textColor,
-            opacity: 0.6,
-            fontFamily: "'DM Mono', monospace",
-            fontSize: '12px',
-            letterSpacing: '0.06em',
-            cursor: 'pointer',
-            transition: 'opacity 0.15s, border-color 0.15s, color 0.15s',
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.opacity = '1';
-            e.currentTarget.style.borderColor = '#b8ff47';
-            e.currentTarget.style.color = '#b8ff47';
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.opacity = '0.6';
-            e.currentTarget.style.borderColor = t.border;
-            e.currentTarget.style.color = textColor;
-          }}
+          className="dashed-button"
         >
           + Add Experience
         </button>

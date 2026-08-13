@@ -1,60 +1,84 @@
-function CVHeader({ personal }) {
-  const contactParts = [personal.email, personal.phone, personal.location].filter(Boolean);
-  const profileLinks = [
-    personal.linkedin && { label: "LinkedIn", value: personal.linkedin },
-    personal.github  && { label: "GitHub",   value: personal.github  },
+function CVHeader({ personal, scale = 1 }) {
+  const px = (value) => `${Math.round(value * scale)}px`;
+  const photoSrc = personal.photo || personal.image || "";
+  // Email and phone are shown in the footer of the CV (CVPreview), not here.
+  const contactRows = [
+    personal.location && { label: 'Address',  value: personal.location },
+    personal.linkedin && { label: 'LinkedIn',  value: personal.linkedin },
+    personal.github   && { label: 'Website',   value: personal.github   },
   ].filter(Boolean);
 
   return (
-    <div style={{ paddingBottom: '18px', marginBottom: '18px', borderBottom: '1px solid #e0e0e8' }}>
-      <h1 style={{
-        margin: 0,
-        fontFamily: "'Inter', sans-serif",
-        fontSize: '32px',
-        fontWeight: 700,
-        letterSpacing: '-0.03em',
-        color: '#0a0a0a',
-        lineHeight: 1.1,
-        textTransform: 'none',
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: `${Math.round(152 * scale)}px 1fr`,
+      gap: px(24),
+      alignItems: 'flex-start',
+      marginBottom: px(24),
+    }}>
+      {/* Photo */}
+      <div style={{
+        width: px(152),
+        height: px(152),
+        background: '#d1d5db',
+        borderRadius: '999px',
+        overflow: 'hidden',
+        flexShrink: 0,
       }}>
-        {personal.name || 'Your Name'}
-      </h1>
+        {photoSrc ? (
+          <img
+            src={photoSrc}
+            alt={personal.name}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '999px' }}
+          />
+        ) : (
+          <div style={{
+            width: '100%', height: '100%',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontFamily: "'DM Mono', monospace", fontSize: px(11), color: '#9ca3af',
+            letterSpacing: '0.04em',
+          }}>
+            photo
+          </div>
+        )}
+      </div>
 
-      {contactParts.length > 0 && (
-        <div style={{
-          marginTop: '8px',
-          fontFamily: "'DM Mono', monospace",
-          fontSize: '12px',
-          color: '#555555',
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '4px 16px',
+      {/* Name + contact */}
+      <div style={{ paddingTop: px(4) }}>
+        <h1 style={{
+          margin: '0 0 10px',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: px(28),
+          fontWeight: 800,
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+          color: '#1a3658',
+          lineHeight: 1.1,
         }}>
-          {contactParts.map((part, i) => <span key={i}>{part}</span>)}
-        </div>
-      )}
+          {personal.name || 'Your Name'}
+        </h1>
 
-      {profileLinks.length > 0 && (
-        <div style={{ display: 'flex', gap: '16px', marginTop: '6px', flexWrap: 'wrap' }}>
-          {profileLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.value.startsWith('http') ? link.value : `https://${link.value}`}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                fontFamily: "'DM Mono', monospace",
-                fontSize: '12px',
-                color: '#6b21a8',
-                textDecoration: 'none',
-                borderBottom: '1px solid #e9d5ff',
-              }}
-            >
-              {link.value.replace(/^https?:\/\//, '')}
-            </a>
+        <div style={{ display: 'grid', gap: px(3) }}>
+          {contactRows.map((row) => (
+            <div key={row.label} style={{ display: 'grid', gridTemplateColumns: `${px(78)} 1fr`, gap: px(8), fontSize: px(13), fontFamily: "'Inter', sans-serif", alignItems: 'start' }}>
+              <span style={{ fontWeight: 700, color: '#1a3658' }}>{row.label}:</span>
+              <span style={{ color: '#374151', minWidth: 0, overflowWrap: 'anywhere', wordBreak: 'break-word' }}>{row.value}</span>
+            </div>
           ))}
         </div>
-      )}
+
+        {(personal.description || personal.summary) && (
+          <p style={{
+            margin: `${px(10)} 0 0`,
+            fontSize: px(14),
+            color: '#374151',
+            lineHeight: '1.55',
+            fontFamily: "'Inter', sans-serif",
+          }}>
+            {personal.description || personal.summary}
+          </p>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/FormPanel.css";
 
 const THEMES = {
   dark:  { label: '#b8ff47', inputBg: '#111118', inputBorder: '#242432', text: '#e8e8f0', chipBg: 'rgba(184,255,71,0.1)', chipBorder: 'rgba(184,255,71,0.25)', chipText: '#b8ff47' },
@@ -17,101 +18,33 @@ function SkillsForm({ skills, onAddSkill, onRemoveSkill, theme = 'dark' }) {
   }
 
   return (
-    <section>
-      <div style={{
-        fontFamily: "'DM Mono', monospace",
-        fontSize: '10px',
-        fontWeight: 500,
-        letterSpacing: '0.12em',
-        textTransform: 'uppercase',
-        color: t.label,
-        marginBottom: '12px',
-      }}>
-        Skills
-      </div>
+    <section className="section">
+      <div className="section-label">Skills</div>
 
       {/* Skill chips */}
       {skills.length > 0 && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '10px' }}>
+        <div className="skills-list">
           {skills.map((skill) => (
-            <span
-              key={skill}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '5px',
-                padding: '4px 10px',
-                borderRadius: '20px',
-                background: t.chipBg,
-                border: `1px solid ${t.chipBorder}`,
-                fontFamily: "'DM Mono', monospace",
-                fontSize: '12px',
-                color: t.chipText,
-              }}
-            >
+            <span key={skill} className="skill-chip">
               {skill}
-              <button
-                type="button"
-                onClick={() => onRemoveSkill(skill)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: t.chipText,
-                  opacity: 0.6,
-                  cursor: 'pointer',
-                  padding: '0',
-                  fontSize: '13px',
-                  lineHeight: 1,
-                }}
-              >
-                ×
-              </button>
+              <button type="button" onClick={() => onRemoveSkill(skill)}>{'×'}</button>
             </span>
           ))}
         </div>
       )}
 
       {/* Input + add button */}
-      <div style={{ display: 'flex', gap: '8px' }}>
+      <div className="skill-row">
         <input
           value={newSkill}
           onChange={e => setNewSkill(e.target.value)}
           onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleAdd(); } }}
           placeholder="Type a skill and press Enter"
-          style={{
-            flex: 1,
-            padding: '9px 12px',
-            borderRadius: '8px',
-            border: `1px solid ${t.inputBorder}`,
-            background: t.inputBg,
-            color: t.text,
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '13px',
-            outline: 'none',
-            transition: 'border-color 0.15s',
-          }}
-          onFocus={e => (e.target.style.borderColor = '#b8ff47')}
-          onBlur={e => (e.target.style.borderColor = t.inputBorder)}
+          className="skill-input"
+          onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
+          onBlur={e => (e.target.style.borderColor = '')}
         />
-        <button
-          type="button"
-          onClick={handleAdd}
-          style={{
-            background: '#b8ff47',
-            color: '#09090e',
-            border: 'none',
-            borderRadius: '8px',
-            padding: '9px 16px',
-            fontFamily: "'DM Mono', monospace",
-            fontSize: '12px',
-            fontWeight: 600,
-            letterSpacing: '0.04em',
-            cursor: 'pointer',
-            flexShrink: 0,
-          }}
-        >
-          + add
-        </button>
+        <button type="button" onClick={handleAdd} className="add-btn">+ add</button>
       </div>
     </section>
   );

@@ -1,58 +1,81 @@
-function CVExperience({ experience }) {
-  const visible = experience.filter((entry) =>
-    [entry.company, entry.role, entry.from, entry.to, entry.description].some(
-      (v) => String(v || "").trim() !== ""
+function CVExperience({ experience, scale = 1 }) {
+  const px = (value) => `${Math.round(value * scale)}px`;
+  const visible = experience.filter((e) =>
+    [e.company, e.role, e.from, e.to, e.description].some(
+      (v) => String(v || '').trim() !== ''
     )
   );
 
   if (visible.length === 0) return null;
 
   return (
-    <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid #e0e0e8' }}>
+    <div style={{ marginBottom: px(20) }}>
+      {/* Section header */}
       <div style={{
-        fontFamily: "'DM Mono', monospace",
-        fontSize: '10px',
-        fontWeight: 500,
-        letterSpacing: '0.14em',
+        fontFamily: "'Inter', sans-serif",
+        fontSize: px(13),
+        fontWeight: 800,
+        letterSpacing: '0.08em',
         textTransform: 'uppercase',
-        color: '#6b21a8',
-        marginBottom: '12px',
+        color: '#1a3658',
+        borderBottom: `${Math.max(1, Math.round(2 * scale))}px solid #1a3658`,
+        paddingBottom: px(4),
+        marginBottom: px(12),
       }}>
-        Experience
+        Work Experience
       </div>
 
       {visible.map((entry) => (
-        <div key={entry.id} style={{ marginBottom: '16px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: '16px' }}>
-            <span style={{ fontWeight: 600, fontSize: '14px', color: '#0a0a0a' }}>
-              {entry.role}
+        <div key={entry.id} style={{ marginBottom: px(14) }}>
+          {/* Role + date row */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'baseline',
+            gap: px(12),
+          }}>
+            <span style={{
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 700,
+              fontSize: px(13.5),
+              color: '#111827',
+            }}>
+              {[entry.role, entry.company].filter(Boolean).join(', ')}
             </span>
             {(entry.from || entry.to) && (
               <span style={{
-                fontFamily: "'DM Mono', monospace",
-                fontSize: '11px',
-                color: '#888888',
+                fontFamily: "'Inter', sans-serif",
+                fontSize: px(13),
+                fontWeight: 600,
+                color: '#1a3658',
                 whiteSpace: 'nowrap',
                 flexShrink: 0,
               }}>
-                {[entry.from, entry.to].filter(Boolean).join(' – ')}
+                {[entry.from, entry.to].filter(Boolean).join(' - ')}
               </span>
             )}
           </div>
-          {entry.company && (
-            <div style={{
-              fontSize: '13px',
-              color: '#6b21a8',
-              fontWeight: 500,
-              marginTop: '2px',
-            }}>
-              {entry.company}
-            </div>
-          )}
+
+          {/* Description as bullet points */}
           {entry.description && (
-            <p style={{ margin: '6px 0 0', fontSize: '13px', color: '#444444', lineHeight: '1.6' }}>
-              {entry.description}
-            </p>
+            <ul style={{
+              margin: `${Math.round(6 * scale)}px 0 0 ${Math.round(18 * scale)}px`,
+              padding: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: px(3),
+            }}>
+              {entry.description.split('\n').filter(Boolean).map((line, i) => (
+                <li key={i} style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: px(14),
+                  color: '#374151',
+                  lineHeight: '1.6',
+                }}>
+                  {line}
+                </li>
+              ))}
+            </ul>
           )}
         </div>
       ))}

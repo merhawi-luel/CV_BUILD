@@ -2,6 +2,7 @@ import PersonalForm from "./PersonalForm";
 import EducationForm from "./EducationForm";
 import ExperienceForm from "./ExperienceForm";
 import SkillsForm from "./SkillsForm";
+import "../styles/FormPanel.css";
 
 const THEMES = {
   dark:  { panel: '#09090e', border: '#1e1e2e' },
@@ -15,6 +16,7 @@ function FormPanel({
   theme = 'dark',
   onThemeChange,
   onPersonalChange,
+  onPersonalFile,
   onAddEducation, onRemoveEducation, onEducationChange,
   onAddExperience, onRemoveExperience, onExperienceChange,
   onAddSkill, onRemoveSkill,
@@ -25,68 +27,46 @@ function FormPanel({
   const textColor = isDark ? '#e8e8f0' : '#1a1a2e';
   const subtleColor = isDark ? '#9090a8' : '#6b7280';
 
+  const cssVars = {
+    '--panel': t.panel,
+    '--border': t.border,
+    '--text-color': textColor,
+    '--subtle': subtleColor,
+    '--accent': '#b8ff47',
+    '--remove': '#ef4444',
+    '--remove-border': '#3f1717',
+    '--input-bg': theme === 'dark' ? '#111118' : theme === 'grey' ? '#e8e8f0' : theme === 'white' ? '#f4f4f8' : '#ede8e0',
+    '--input-border': theme === 'dark' ? '#242432' : theme === 'grey' ? '#c8c8d8' : theme === 'white' ? '#d0d0dc' : '#c8bfb0',
+    '--card-bg': theme === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+    '--card-border': theme === 'dark' ? '#242432' : theme === 'grey' ? '#c8c8d8' : theme === 'white' ? '#d0d0dc' : '#c8bfb0',
+    '--chip-bg': theme === 'dark' ? 'rgba(184,255,71,0.1)' : '#f3e8ff',
+    '--chip-border': theme === 'dark' ? 'rgba(184,255,71,0.25)' : '#e9d5ff',
+    '--chip-text': theme === 'dark' ? '#b8ff47' : '#6b21a8',
+    '--label': theme === 'dark' ? '#b8ff47' : '#6b21a8',
+    '--accent-contrast': '#09090e',
+    '--brand-mark': isDark ? accent : '#6b21a8',
+  };
+
   return (
-    <div style={{
-      width: '420px',
-      minWidth: '340px',
-      height: '100vh',
-      background: t.panel,
-      borderRight: `1px solid ${t.border}`,
-      display: 'flex',
-      flexDirection: 'column',
-      fontFamily: "'Inter', sans-serif",
-      color: textColor,
-      transition: 'background 0.2s, color 0.2s',
-      flexShrink: 0,
-    }}>
+    <div className="form-root" style={cssVars}>
 
       {/* Brand header */}
-      <div style={{
-        padding: '20px 24px 16px',
-        borderBottom: `1px solid ${t.border}`,
-        flexShrink: 0,
-      }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px', marginBottom: '3px' }}>
-          <span style={{
-            fontFamily: "'DM Mono', monospace",
-            fontSize: '20px',
-            fontWeight: 500,
-            letterSpacing: '-0.02em',
-            color: isDark ? accent : '#6b21a8',
-          }}>cv/</span>
-          <span style={{ fontSize: '16px', fontWeight: 700, letterSpacing: '-0.01em' }}>builder</span>
+      <div className="brand-header">
+        <div className="brand-title">
+          <span className="brand-mark">cv/</span>
+          <span className="brand-name">builder</span>
         </div>
-        <p style={{
-          margin: '0 0 14px',
-          fontFamily: "'DM Mono', monospace",
-          fontSize: '11px',
-          color: subtleColor,
-          letterSpacing: '0.02em',
-        }}>
-          fill in the form — preview updates live
-        </p>
+        <p className="brand-sub">fill in the form — preview updates live</p>
 
         {/* Theme switcher */}
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+        <div className="theme-switcher">
           {['dark', 'grey', 'white', 'paper'].map((key) => {
             const active = theme === key;
             return (
               <button
                 key={key}
                 onClick={() => onThemeChange?.(key)}
-                style={{
-                  fontFamily: "'DM Mono', monospace",
-                  fontSize: '11px',
-                  letterSpacing: '0.06em',
-                  padding: '5px 13px',
-                  borderRadius: '20px',
-                  border: `1px solid ${active ? accent : t.border}`,
-                  background: active ? accent : 'transparent',
-                  color: active ? '#09090e' : textColor,
-                  cursor: 'pointer',
-                  fontWeight: active ? 600 : 400,
-                  transition: 'all 0.15s',
-                }}
+                className={`theme-btn ${active ? 'active' : ''}`}
               >
                 {key}
               </button>
@@ -96,17 +76,11 @@ function FormPanel({
       </div>
 
       {/* Scrollable form sections */}
-      <div style={{
-        flex: 1,
-        overflowY: 'auto',
-        padding: '20px 24px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '28px',
-      }}>
+      <div className="form-scroll">
         <PersonalForm
           personal={cvData.personal}
           onPersonalChange={onPersonalChange}
+          onPersonalFile={onPersonalFile}
           theme={theme}
         />
         <EducationForm
@@ -129,7 +103,7 @@ function FormPanel({
           onRemoveSkill={onRemoveSkill}
           theme={theme}
         />
-        <div style={{ height: '8px' }} />
+        <div className="spacer-8" />
       </div>
     </div>
   );

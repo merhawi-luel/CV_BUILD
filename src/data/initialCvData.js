@@ -1,5 +1,5 @@
 export const emptyCvData = {
-  personal: { name: "", email: "", phone: "", location: "", linkedin: "", github: "" },
+  personal: { name: "", email: "", phone: "", location: "", linkedin: "", github: "", description: "Results-oriented software engineer with experience building responsive, user-focused web applications. Skilled in React, JavaScript, and modern UI development, with a strong focus on clean architecture, performance, and collaboration.", image: "" },
   education: [],
   experience: [],
   skills: [],
@@ -13,6 +13,8 @@ export const exampleCvData = {
     location: "Addis Ababa, Ethiopia",
     linkedin: "linkedin.com/in/eima",
     github: "github.com/eima",
+    description: "Results-oriented software engineer with experience building responsive, user-focused web applications. Skilled in React, JavaScript, and modern UI development, with a strong focus on clean architecture, performance, and collaboration.",
+    image: "",
   },
   education: [
     {

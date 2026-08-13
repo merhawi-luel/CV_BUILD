@@ -11,6 +11,8 @@ export default function App(): JSX.Element {
   const {
     cvData,
     handlePersonalChange,
+    // @ts-ignore - handler implemented in JS
+    handlePersonalFile,
     addEducation,
     removeEducation,
     handleEducationChange,
@@ -185,6 +187,16 @@ export default function App(): JSX.Element {
                 onFocus={(e) => (e.currentTarget.style.boxShadow = focusStyle.boxShadow as string)}
                 onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
               />
+              <textarea
+                name="description"
+                placeholder="A short description about you"
+                value={cvData.personal.description || ''}
+                onChange={handlePersonalChange}
+                style={{ ...inputBase, minHeight: 84 }}
+                onFocus={(e) => (e.currentTarget.style.boxShadow = focusStyle.boxShadow as string)}
+                onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
+              />
+              <input type="file" accept="image/*" onChange={handlePersonalFile} />
             </div>
           </section>
 
@@ -295,7 +307,15 @@ export default function App(): JSX.Element {
             {/* Paper preview must be preserved exactly as specified */}
             <div style={{ maxWidth: 720, margin: "0 auto", background: palette.paperBg, padding: 28 }}>
               <div style={{ textAlign: "center", marginBottom: 8 }}>
+                  {cvData.personal.image && (
+                    <div style={{ marginBottom: 8 }}>
+                      <img src={cvData.personal.image} alt={cvData.personal.name || 'Photo'} style={{ width: 88, height: 88, objectFit: 'cover', borderRadius: 999, border: '3px solid #fff', boxShadow: '0 6px 18px rgba(0,0,0,0.08)', display: 'inline-block' }} />
+                    </div>
+                  )}
                   <div style={{ fontFamily: "Inter", fontWeight: 700, fontSize: 32, letterSpacing: "-0.03em", color: palette.paperName }}>{cvData.personal.name || "Your Name"}</div>
+                  {cvData.personal.description && (
+                    <div style={{ marginTop: 8, fontFamily: "Inter, sans-serif", fontSize: 14, color: palette.paperBody }}>{cvData.personal.description}</div>
+                  )}
                   <div style={{ marginTop: 6, fontFamily: "DM Mono, monospace", fontSize: 12, color: palette.paperContact }}>
                     {[cvData.personal.email, cvData.personal.phone, cvData.personal.location].filter(Boolean).join(" | ")}
                   </div>

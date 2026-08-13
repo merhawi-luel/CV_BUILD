@@ -12,6 +12,20 @@ export function useCvData() {
     }));
   };
 
+  const handlePersonalFile = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result;
+      setCvData((prev) => ({
+        ...prev,
+        personal: { ...prev.personal, image: dataUrl },
+      }));
+    };
+    reader.readAsDataURL(file);
+  };
+
   const addEducation = () => {
     setCvData((prev) => ({
       ...prev,
@@ -84,6 +98,7 @@ export function useCvData() {
   return {
     cvData,
     handlePersonalChange,
+    handlePersonalFile,
     addEducation,
     removeEducation,
     handleEducationChange,
