@@ -48,7 +48,7 @@ function PersonalForm({ personal, onPersonalChange, onPersonalFile, theme = 'dar
           <textarea
             name="description"
             placeholder="A short description about you"
-            value={''}
+            value={personal.description || ''}
             onChange={onPersonalChange}
             className="entry-textarea"
             rows={4}
