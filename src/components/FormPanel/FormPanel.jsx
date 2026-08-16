@@ -20,6 +20,8 @@ function FormPanel({
   onAddEducation, onRemoveEducation, onEducationChange,
   onAddExperience, onRemoveExperience, onExperienceChange,
   onAddSkill, onRemoveSkill,
+  onClearAll,
+  onLoadExample,
 }) {
   const t = THEMES[theme] || THEMES.dark;
   const isDark = theme === 'dark';
@@ -72,6 +74,24 @@ function FormPanel({
               </button>
             );
           })}
+        </div>
+
+        {/* Clear / Load actions */}
+        <div className="form-actions">
+          <button
+            type="button"
+            className="action-btn"
+            onClick={onClearAll}
+          >
+            Clear All
+          </button>
+          <button
+            type="button"
+            className="action-btn action-btn-primary"
+            onClick={onLoadExample}
+          >
+            Load Example
+          </button>
         </div>
       </div>
 

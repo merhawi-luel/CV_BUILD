@@ -1,5 +1,5 @@
 export const emptyCvData = {
-  personal: { name: "", email: "", phone: "", location: "", linkedin: "", github: "", description: "Results-oriented software engineer with experience building responsive, user-focused web applications. Skilled in React, JavaScript, and modern UI development, with a strong focus on clean architecture, performance, and collaboration.", image: "" },
+  personal: { name: "", email: "", phone: "", location: "", linkedin: "", github: "", description: "", image: "" },
   education: [],
   experience: [],
   skills: [],
@@ -13,7 +13,7 @@ export const exampleCvData = {
     location: "Addis Ababa, Ethiopia",
     linkedin: "linkedin.com/in/eima",
     github: "github.com/eima",
-    description: "Results-oriented software engineer with experience building responsive, user-focused web applications. Skilled in React, JavaScript, and modern UI development, with a strong focus on clean architecture, performance, and collaboration.",
+    description: "Results-oriented software engineer with 3+ years of experience building responsive, user-focused web applications. Skilled in React, JavaScript, and modern UI development, with a strong focus on clean architecture, performance, and collaboration.",
     image: "",
   },
   education: [
@@ -33,7 +33,7 @@ export const exampleCvData = {
       role: "Software Engineer",
       from: "2024",
       to: "Present",
-      description: "Built and maintained web applications using React and Node.js, collaborated with a small team on feature development and bug fixes.",
+      description: "Built and maintained web applications using React and Node.js, collaborating with a small team on feature development and bug fixes.\nImproved page load performance by 40% through code splitting and lazy loading.\nIntroduced unit tests with Vitest, raising coverage from 15% to 80%.",
     },
   ],
   skills: ["JavaScript", "React", "Node.js"],

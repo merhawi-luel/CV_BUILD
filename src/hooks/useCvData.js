@@ -1,8 +1,15 @@
 import { useState } from "react";
-import { emptyCvData } from "../data/initialCvData";
+import { emptyCvData, exampleCvData } from "../data/initialCvData";
+
+// Deep-clone so state never shares references with the imported constants.
+const cloneCvData = (data) => JSON.parse(JSON.stringify(data));
 
 export function useCvData() {
-  const [cvData, setCvData] = useState(emptyCvData);
+  const [cvData, setCvData] = useState(() => cloneCvData(emptyCvData));
+
+  const clearAll = () => setCvData(cloneCvData(emptyCvData));
+
+  const loadExample = () => setCvData(cloneCvData(exampleCvData));
 
   const handlePersonalChange = (e) => {
     const { name, value } = e.target;
@@ -97,6 +104,8 @@ export function useCvData() {
 
   return {
     cvData,
+    clearAll,
+    loadExample,
     handlePersonalChange,
     handlePersonalFile,
     addEducation,

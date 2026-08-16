@@ -28,6 +28,12 @@
 .theme-btn { font-family:'DM Mono', monospace; font-size:11px; letter-spacing:0.06em; padding:5px 13px; border-radius:20px; cursor:pointer; transition: all 0.15s; border: 1px solid var(--border); color: var(--text-color); background: transparent; }
 .theme-btn.active { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-contrast); font-weight:600; }
 
+.form-actions { display:flex; gap:8px; margin-top:12px; }
+.action-btn { flex:1; background:transparent; border-radius:8px; padding:9px 12px; font-family:'DM Mono', monospace; font-size:11px; letter-spacing:0.06em; cursor:pointer; transition: all 0.15s; border:1px solid var(--border); color: var(--text-color); }
+.action-btn:hover { border-color: var(--accent); color: var(--accent); }
+.action-btn-primary { background: var(--accent); border:1px solid var(--accent); color: var(--accent-contrast); font-weight:600; }
+.action-btn-primary:hover { color: var(--accent-contrast); opacity: 0.9; }
+
 .form-scroll { flex:1; overflow-y:auto; padding:20px 24px; display:flex; flex-direction:column; gap:28px; }
 
 .section-label { font-family:'DM Mono', monospace; font-size:10px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:12px; }

@@ -5,7 +5,7 @@ function CVHeader({ personal, scale = 1 }) {
   const contactRows = [
     personal.location && { label: 'Address',  value: personal.location },
     personal.linkedin && { label: 'LinkedIn',  value: personal.linkedin },
-    personal.github   && { label: 'Website',   value: personal.github   },
+    personal.github   && { label: 'Github',    value: personal.github   },
   ].filter(Boolean);
 
   return (
@@ -67,7 +67,7 @@ function CVHeader({ personal, scale = 1 }) {
           ))}
         </div>
 
-        {(personal.description || personal.summary) && (
+        {(personal.description) && (
           <p style={{
             margin: `${px(10)} 0 0`,
             fontSize: px(14),
@@ -75,7 +75,7 @@ function CVHeader({ personal, scale = 1 }) {
             lineHeight: '1.55',
             fontFamily: "'Inter', sans-serif",
           }}>
-            {personal.description || personal.summary}
+            {personal.description}
           </p>
         )}
       </div>
